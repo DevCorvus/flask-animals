@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %}
+
+{% block header %}Animal Details{% endblock %}
+
+{% block content %}
+<div class="flex">
+  {% if animal.image_url != '' %}
+  <img class="image" src="{{ animal.image_url }}" alt="animal.name">
+  {% else %}
+  <span style="width: 50%; font-style: italic;">Image not provided.</span>
+  {% endif %}
+  <div class="animal-info">
+    <div>
+      <a class="button" href="/">Go Back</a>
+    </div>
+    <header>
+      <h2>{{ animal.name }}</h2>
+    </header>
+    {% if animal.description != '' %}
+    <pre>{{ animal.description }}</pre>
+    {% else %}
+    <span style="font-style: italic;">Description not provided.</span>
+    {% endif %}
+    <p>{{ animal.created_at.date() }}</p>
+    <div class="button-container">
+      <a class="button" href="/update/{{ animal.id }}/">Edit</a>
+      <a class="button" href="/delete/{{ animal.id }}/">Delete</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

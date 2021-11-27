@@ -1,0 +1,57 @@
+{% extends 'layouts/base.html' %}
+
+{% block header %}Animals{% endblock %}
+
+{% block content %}
+{% if animals|length == 0 %}
+<div>
+  <h3>There are no animals. Add one below!</h3>
+  <br>
+  <a class="button" href="/create/">Add Animal</a>
+</div>
+{% else %}
+<form action="" method="GET">
+  <label for="search">Search:</label>
+  <div class="search-wrapper">
+    <input type="text" name="search" id="search" value="{% if search %}{{ search }}{% endif %}" placeholder="Enter your search here...">
+    <button type="submit">
+      Search
+    </button>
+  </div>
+</form>
+<table>
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Added</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for animal in animals %}
+    <tr>
+      <td class="image-container">
+        {% if animal.image_url %}
+        <img class="image-thumbnail" src="{{ animal.image_url }}" alt="{{ animal.name }}">
+        {% else %}
+        <span style="font-style: italic;">Not Provided</span>
+        {% endif %}
+      </td>
+      <td>{{ animal.name[:50] }}{% if animal.name|length > 50 %}...{% endif %}</td>
+      <td style="padding: 10px;">{% if animal.description != '' %}{{ animal.description[:100] }}{% if animal.description|length > 100 %}...{% endif %}{% else %}<span style="font-style: italic;">Not Provided</span>{% endif %}</td>
+      <td style="padding: 0px 2px 0px 2px;">{{ animal.created_at.strftime('%d/%m/%Y') }}</td>
+      <td>
+        <div class="actions">
+          <a class="link" style="color: blue;" href="/{{ animal.id }}/">Details</a>
+          <a class="link" style="color: green;" href="/update/{{ animal.id }}/">Edit</a>
+          <a class="link" style="color: red;" href="/delete/{{ animal.id }}/">Delete</a>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}

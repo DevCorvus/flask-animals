@@ -1,0 +1,158 @@
+{% extends 'layouts/base.html' %}
+
+{% block header %}API{% endblock %}
+
+{% block content %}
+<div class="about-container">
+  <div>
+    <h2>Data Structure (JSON)</h2>
+    <code>
+      <pre>
+    {
+        "id": Int,
+        "name": String(2-150),
+        "description": String,
+        "image_url": String,
+        "created_at": Date
+    }</pre>
+    </code>
+  </div>
+  <p>This API can be used from anywhere by accessing the following endpoints:</p>
+  <br>
+  <p><strong>NOTE:</strong> All route examples are relative to the full domain where this API is hosted. <code>GET</code>, <code>POST</code>, <code>PUT</code>, and <code>DELETE</code> are the methods associated to each route and <code>[]</code> represents URL positional arguments:</p>
+  <br><hr><br>
+  <ul>
+    <liK>
+      <h2>
+        <strong class="method">GET</strong> /api/
+      </h2>
+      <br>
+      <p>Return all entries in the database. <small>status: <code>200</code></small></p>
+      <br>
+      <p>OPTIONAL: There are a couple of query strings available for this route: <code>search</code> and <code>limit</code>:</p>
+      <br>
+      <ul class="ul">
+        <li>
+          <p><strong>search</strong>: Perform a relative search on an animal's name OR description. <small>type: <code>String</code></small></p>
+        </li>
+        <br>
+        <li>
+          <p><strong>limit</strong>: Set a limit on results. <small>type: <code>Int > 0</code></small>. If the limit value is incorrect, it will return <code>400</code> status.</p>
+        </li>
+      </ul>
+      <br>
+      <h3>Examples</h3>
+      <br>
+      <div>
+        <p class="url"><code>GET</code> /api/</p>
+        <br>
+        <p class="url"><code>GET</code> /api/?search=cat</p>
+        <br>
+        <p class="url"><code>GET</code> /api/?limit=5</p>
+        <br>
+        <p class="url"><code>GET</code> /api/?search=og&limit=10</p>
+      </div>
+    </li>
+    <br><hr><br>
+    <li>
+      <h2>
+        <strong class="method">GET</strong> /api/[id]/
+      </h2>
+      <br>
+      <p>Returns a single database entry by <code>id</code>. <small>status: <code>200</code></small></p>
+      <br>
+      <h3>Example</h3>
+      <br>
+      <p class="url"><code>GET</code> /api/1</p>
+      <br>
+      <p>If the entry by <code>id</code> is not found, it will return <code>404</code> status.</p>
+    </li>
+    <br><hr><br>
+    <li>
+      <h2>
+        <strong class="method">POST</strong> /api/
+      </h2>
+      <br>
+      <p>Add a new entry in the database and return it complete. <small>status: <code>201</code></small>.</p>
+      <br>
+      <h3>Request</h3>
+      <code>
+        <pre>
+    <span class="url"><code>POST</code> /api/</span>
+    
+    Content-Type: application/json
+
+    {
+        "name": String(2-150),
+        "description": String,
+        "image_url": String
+    }</pre>
+      </code>
+      <h3>Example</h3>
+      <code>
+        <pre>
+    <span class="url"><code>POST</code> /api/</span>
+
+    Content-Type: application/json
+
+    {
+        "name": "Cat",
+        "description": "Cute animal",
+        "image_url": "https://example.com/images/cat.jpg"
+    }</pre>
+      </code>
+      <p>If the request is incorrect, it will return <code>400</code> status.</p>
+    </li>
+    <br><hr><br>
+    <li>
+      <h2>
+        <strong class="method">PUT</strong> /api/[id]/
+      </h2>
+      <br>
+      <p>Update one of the entries in the database by <code>id</code> and return it. It requires a URL positional parameter (<code>id</code>) of type <code>Int</code>. <small>status: <code>200</code></small></p>
+      <br>
+      <h3>Request</h3>
+      <code>
+        <pre>
+    <span class="url"><code>PUT</code> /api/[id]/</span>
+    
+    Content-Type: application/json
+
+    {
+        "name": String(2-150),
+        "description": String,
+        "image_url": String
+    }</pre>
+      </code>
+      <h3>Example</h3>
+      <code>
+        <pre>
+    <span class="url"><code>PUT</code> /api/1/</span>
+
+    Content-Type: application/json
+
+    {
+        "name": "Dog",
+        "description": "Beautiful animal",
+        "image_url": "https://example.com/images/dog.jpg"
+    }</pre>
+      </code>
+      <p>If the entry by <code>id</code> is not found, it will return <code>404</code> status. On the other hand, if the request is incorrect, it will return <code>400</code> status.</p>
+    </li>
+    <br><hr><br>
+    <li>
+      <h2>
+        <strong class="method">DELETE</strong> /api/[id]/
+      </h2>
+      <br>
+      <p>Delete one of the entries in the database by <code>id</code>. It requires a URL positional parameter (<code>id</code>) of type <code>Int</code>. <small>status: <code>204</code></small></p>
+      <br>
+      <h3>Example</h3>
+      <br>
+      <p class="url"><code>DELETE</code> /api/1/</p>
+      <br>
+      <p>If the entry by <code>id</code> is not found, it will return <code>404</code> status.</p>
+    </li>
+  </ul>
+</div>
+{% endblock %}

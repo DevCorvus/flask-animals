@@ -1,0 +1,33 @@
+{% extends 'layouts/base.html' %}
+
+{% block header %}{% if animal %}Edit Animal{% else %}Add Animal{% endif %}{% endblock %}
+
+{% block content %}
+<div class="generic-container">
+  <form class="form" action="" method="POST">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" maxlength="150" value="{% if animal %}{{ animal.name }}{% endif %}">
+      {% if error %}
+      <span style="color: red;">{{ error }}</span>
+      {% endif %}
+    </div>
+    <div>
+      <label for="description">Description:</label>
+      <textarea name="description" id="description" cols="30" rows="10">{% if animal %}{{ animal.description }}{% endif %}</textarea>
+    </div>
+    <div>
+      <label for="image_url">Image URL:</label>
+      <input type="text" name="image_url" id="image_url" value="{% if animal %}{{ animal.image_url }}{% endif %}">
+    </div>
+    <div class="button-container">
+      <a class="button" href="/">
+        Cancel
+      </a>
+      <button class="button" type="submit">
+        {% if animal %}Apply Changes{% else %}Add Animal{% endif %}
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %}
+
+{% block header %}Are you sure you want to delete "{{ animal.name }}"?{% endblock %}
+
+{% block content %}
+<form action="" method="POST">
+  <div class="button-container">
+    <a class="button" href="/">
+      Cancel
+    </a>
+    <button class="button" type="submit">
+      Confirm
+    </button>
+  </div>
+</form>
+{% endblock %}
