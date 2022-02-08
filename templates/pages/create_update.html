@@ -1,33 +1,55 @@
 {% extends 'layouts/base.html' %}
 
-{% block header %}{% if animal %}Edit Animal{% else %}Add Animal{% endif %}{% endblock %}
-
 {% block content %}
-<div class="generic-container">
-  <form class="form" action="" method="POST">
-    <div>
-      <label for="name">Name:</label>
-      <input type="text" name="name" id="name" maxlength="150" value="{% if animal %}{{ animal.name }}{% endif %}">
-      {% if error %}
-      <span style="color: red;">{{ error }}</span>
-      {% endif %}
-    </div>
-    <div>
-      <label for="description">Description:</label>
-      <textarea name="description" id="description" cols="30" rows="10">{% if animal %}{{ animal.description }}{% endif %}</textarea>
-    </div>
-    <div>
-      <label for="image_url">Image URL:</label>
-      <input type="text" name="image_url" id="image_url" value="{% if animal %}{{ animal.image_url }}{% endif %}">
-    </div>
-    <div class="button-container">
-      <a class="button" href="/">
+<form class="bg-light border p-3" action="" method="POST">
+  <header>
+    <h1 class="text-center">{% if animal %}Edit Animal{% else %}Add Animal{% endif %}</h1>
+  </header>
+  <div>
+    <label class="form-label" for="name">Name:</label>
+    <input
+      type="text"
+      class="form-control"
+      name="name"
+      id="name"
+      maxlength="150"
+      value="{% if animal %}{{ animal.name }}{% endif %}"
+    >
+    {% if error %}
+    <span class="text-danger">{{ error }}</span>
+    {% endif %}
+  </div>
+  <div class="mt-1">
+    <label class="form-label" for="description">Description:</label>
+    <textarea
+      name="description"
+      class="form-control"
+      id="description"
+      cols="30"
+      rows="10"
+    >{% if animal %}{{ animal.description }}{% endif %}</textarea>
+  </div>
+  <div class="mt-1">
+    <label class="form-label" for="image_url">Image URL:</label>
+    <input
+      type="text"
+      class="form-control"
+      name="image_url"
+      id="image_url"
+      value="{% if animal %}{{ animal.image_url }}{% endif %}"
+    >
+  </div>
+  <div class="row g-3 mt-2">
+    <div class="col-auto">
+      <a class="btn btn-secondary" href="/">
         Cancel
       </a>
-      <button class="button" type="submit">
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-primary" type="submit">
         {% if animal %}Apply Changes{% else %}Add Animal{% endif %}
       </button>
     </div>
-  </form>
-</div>
+  </div>
+</form>
 {% endblock %}

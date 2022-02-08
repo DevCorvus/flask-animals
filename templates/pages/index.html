@@ -1,26 +1,38 @@
 {% extends 'layouts/base.html' %}
 
-{% block header %}Animals{% endblock %}
-
 {% block content %}
 {% if animals|length == 0 %}
 <div>
-  <h3>There are no animals. Add one below!</h3>
-  <br>
-  <a class="button" href="/create/">Add Animal</a>
+  <h3 class="mb-2">There are no animals. Add one below!</h3>
+  <a class="btn btn-primary" href="/create/">Add Animal</a>
 </div>
 {% else %}
-<form action="" method="GET">
-  <label for="search">Search:</label>
-  <div class="search-wrapper">
-    <input type="text" name="search" id="search" value="{% if search %}{{ search }}{% endif %}" placeholder="Enter your search here...">
-    <button type="submit">
-      Search
-    </button>
-  </div>
-</form>
-<table>
-  <thead>
+<div class="d-flex justify-content-between align-items-center mb-2">
+  <header>
+    <h1>Animals</h1>
+  </header>
+  <form action="" method="GET">
+    <div class="row g-3">
+      <div class="col-auto">
+        <input
+          type="text"
+          class="form-control"
+          name="search"
+          id="search"
+          value="{% if search %}{{ search }}{% endif %}"
+          placeholder="Enter your search here..."
+        >
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary" type="submit">
+          Search
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<table class="table table-bordered">
+  <thead class="table-dark">
     <tr>
       <th>Image</th>
       <th>Name</th>
@@ -32,21 +44,32 @@
   <tbody>
   {% for animal in animals %}
     <tr>
-      <td class="image-container">
+      <td>
         {% if animal.image_url %}
-        <img class="image-thumbnail" src="{{ animal.image_url }}" alt="{{ animal.name }}">
+        <img style="max-width: 100px;" class="img-thumbnail" src="{{ animal.image_url }}" alt="{{ animal.name }}">
         {% else %}
-        <span style="font-style: italic;">Not Provided</span>
+        <em>Not Provided</em>
         {% endif %}
       </td>
       <td>{{ animal.name[:50] }}{% if animal.name|length > 50 %}...{% endif %}</td>
-      <td style="padding: 10px;">{% if animal.description != '' %}{{ animal.description[:100] }}{% if animal.description|length > 100 %}...{% endif %}{% else %}<span style="font-style: italic;">Not Provided</span>{% endif %}</td>
-      <td style="padding: 0px 2px 0px 2px;">{{ animal.created_at.strftime('%d/%m/%Y') }}</td>
       <td>
-        <div class="actions">
-          <a class="link" style="color: blue;" href="/{{ animal.id }}/">Details</a>
-          <a class="link" style="color: green;" href="/update/{{ animal.id }}/">Edit</a>
-          <a class="link" style="color: red;" href="/delete/{{ animal.id }}/">Delete</a>
+        {% if animal.description != '' %}
+          {{ animal.description[:100] }}
+        {% if animal.description|length > 100 %}
+          ...
+        {% endif %}
+        {% else %}
+          <em>Not Provided</em>
+        {% endif %}
+      </td>
+      <td>
+        <strong>{{ animal.created_at.strftime('%d/%m/%Y') }}</strong>
+      </td>
+      <td>
+        <div class="row g-1">
+          <a class="btn btn-sm btn-outline-primary" href="/{{ animal.id }}/">Details</a>
+          <a class="btn btn-sm btn-outline-success" href="/update/{{ animal.id }}/">Edit</a>
+          <a class="btn btn-sm btn-outline-danger" href="/delete/{{ animal.id }}/">Delete</a>
         </div>
       </td>
     </tr>
