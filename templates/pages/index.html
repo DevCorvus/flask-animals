@@ -54,8 +54,8 @@
       <td>{{ animal.name[:50] }}{% if animal.name|length > 50 %}...{% endif %}</td>
       <td>
         {% if animal.description != '' %}
-          {{ animal.description[:100] }}
-        {% if animal.description|length > 100 %}
+          {{ animal.description[:200] }}
+        {% if animal.description|length > 200 %}
           ...
         {% endif %}
         {% else %}
