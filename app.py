@@ -8,7 +8,7 @@ from os import environ
 app = Flask(__name__)
 CORS(app, resources={r'/api/*': {'origin': '*'}})
 
-ENV = 'development'
+ENV = environ.get('FLASK_ENV')
 
 if ENV == 'development':
     app.debug = True
@@ -16,10 +16,10 @@ if ENV == 'development':
 
 elif ENV == 'production':
     app.debug = False
-    DATABASE_URL = environ['MY_DATABASE_URL']
+    DATABASE_URL = environ.get('MY_DATABASE_URL')
 
 else:
-    pass
+    raise Exception('FLASK_ENV not found / not supported')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
