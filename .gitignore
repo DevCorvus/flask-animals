@@ -1,6 +1,6 @@
 __pycache__/
 test.db
-requests.rest
+*.rest
 migrations/
-env/
+venv/
 .env
