@@ -4,7 +4,7 @@
 
 <h1 align="center">Flask Animals</h1>
 
-A simple CRUD REST API developed in Flask and Bootstrap 5 based on animals to mislead the fact that it is still just a CRUD REST API.
+A simple CRUD REST API developed in Flask, Bootstrap 5 and Postgres, based on animals to mislead the fact that it is still just a CRUD REST API.
 
 **Check it out: https://flaskanimals.herokuapp.com**
 
